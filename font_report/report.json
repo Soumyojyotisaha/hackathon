@@ -1,0 +1,112 @@
+{
+    "date": "28/3/2025, 12:23:37 am",
+    "url": "https://www.fisglobal.com/insights/risk-management",
+    "issuesFound": 21,
+    "details": [
+        {
+            "textContent": "Search",
+            "tagHierarchy": "html > body > div > div > header > div > div > div > div > div > div > div > div > form > button",
+            "fontFamily": "Arial"
+        },
+        {
+            "textContent": "Search",
+            "tagHierarchy": "html > body > div > div > header > div > div > div > div > div > div > div > div > form > button > span",
+            "fontFamily": "Arial"
+        },
+        {
+            "textContent": "Preferences",
+            "tagHierarchy": "html > body > div > div > div > div > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Decline",
+            "tagHierarchy": "html > body > div > div > div > div > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Accept",
+            "tagHierarchy": "html > body > div > div > div > div > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Cookie Policy",
+            "tagHierarchy": "html > body > div > div > div > div > div > a",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Allow All",
+            "tagHierarchy": "html > body > div > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Functional Cookies",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > h4",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Cookies Details‎",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Social Media Cookies",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > h4",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Cookies Details‎",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Marketing Cookies",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > h4",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Cookies Details‎",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Strictly Necessary Cookies",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > h4",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Cookies Details‎",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Performance Cookies",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > h4",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Cookies Details‎",
+            "tagHierarchy": "html > body > div > div > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_semibold, sans-serif"
+        },
+        {
+            "textContent": "Apply",
+            "tagHierarchy": "html > body > div > div > div > section > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Cancel",
+            "tagHierarchy": "html > body > div > div > div > section > div > div > section > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Reject All",
+            "tagHierarchy": "html > body > div > div > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        },
+        {
+            "textContent": "Confirm My Choices",
+            "tagHierarchy": "html > body > div > div > div > div > div > button",
+            "fontFamily": "source_sans_probold, sans-serif"
+        }
+    ]
+}

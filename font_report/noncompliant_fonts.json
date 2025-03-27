@@ -1,0 +1,86 @@
+[
+    {
+        "textContent": "Search",
+        "fontFamily": "Arial"
+    },
+    {
+        "textContent": "Search",
+        "fontFamily": "Arial"
+    },
+    {
+        "textContent": "Preferences",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Decline",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Accept",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Cookie Policy",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Allow All",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Functional Cookies",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Cookies Details‎",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Social Media Cookies",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Cookies Details‎",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Marketing Cookies",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Cookies Details‎",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Strictly Necessary Cookies",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Cookies Details‎",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Performance Cookies",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Cookies Details‎",
+        "fontFamily": "source_sans_semibold, sans-serif"
+    },
+    {
+        "textContent": "Apply",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Cancel",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Reject All",
+        "fontFamily": "source_sans_probold, sans-serif"
+    },
+    {
+        "textContent": "Confirm My Choices",
+        "fontFamily": "source_sans_probold, sans-serif"
+    }
+]

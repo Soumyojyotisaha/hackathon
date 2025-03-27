@@ -1,70 +1,88 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+const { chromium } = require('playwright');
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: false }); // Set headless to false for debugging
+    const browser = await chromium.launch({ headless: false });
     const page = await browser.newPage();
-    
-    console.log("🌐 Opening website...");
-    await page.goto('https://www.fisglobal.com/insights/risk-management', { waitUntil: 'load' });
+    await page.goto('https://www.fisglobal.com/insights/risk-management', { waitUntil: 'domcontentloaded' });
 
-    console.log("🔄 Scrolling page...");
-    await page.evaluate(async () => {
-        await new Promise((resolve) => {
-            let totalHeight = 0;
-            const distance = 500;
-            const scrollInterval = setInterval(() => {
-                window.scrollBy(0, distance);
-                totalHeight += distance;
+    console.log("🔍 Scrolling through the page to load all content...\n");
 
-                if (totalHeight >= document.body.scrollHeight) {
-                    clearInterval(scrollInterval);
-                    resolve();
-                }
-            }, 300);
+    // Scroll the entire page to load all elements
+    let previousHeight = 0;
+    while (true) {
+        let currentHeight = await page.evaluate(() => {
+            window.scrollBy(0, window.innerHeight);
+            return document.documentElement.scrollHeight;
         });
-    });
 
-    console.log("✅ Page fully scrolled!");
+        await page.waitForTimeout(1000); // Small delay for content to load
 
-    const complianceFont = "Roobert"; // Change this to your compliance font
+        if (currentHeight === previousHeight) break; // Stop if no more scrolling is possible
+        previousHeight = currentHeight;
+    }
+
+    console.log("✅ Finished scrolling. Now checking for non-compliant fonts...\n");
+
+    const complianceFont = "Roobert";
+
+    // Find all non-compliant elements and extract direct links
     const fontDetails = await page.evaluate((complianceFont) => {
-        const elements = document.querySelectorAll('*');
-        const nonComplianceSet = new Set();
+        function getElementXPath(el) {
+            if (!el) return "";
+            if (el.id) return `//*[@id="${el.id}"]`; // Use ID if available
 
-        elements.forEach(el => {
+            const parts = [];
+            while (el && el.nodeType === Node.ELEMENT_NODE) {
+                let index = 1;
+                let sibling = el.previousElementSibling;
+                while (sibling) {
+                    if (sibling.tagName === el.tagName) index++;
+                    sibling = sibling.previousElementSibling;
+                }
+                parts.unshift(`${el.tagName.toLowerCase()}[${index}]`);
+                el = el.parentElement;
+            }
+            return `/${parts.join("/")}`;
+        }
+
+        const elements = document.querySelectorAll('*');
+        const nonCompliance = [];
+
+        elements.forEach((el) => {
             const style = window.getComputedStyle(el);
             const fontFamily = style.fontFamily;
-            const fontSize = style.fontSize;
-            const fontWeight = style.fontWeight;
-            const fontStyle = style.fontStyle;
-            const color = style.color;
-            const text = el.innerText.trim().substring(0, 50); // Capture text sample for reference
+            const textContent = el.innerText?.trim() || "[No Visible Text]"; // Handle undefined text
+            const xPath = getElementXPath(el);
 
-            const fontData = JSON.stringify({
-                fontFamily,
-                fontSize,
-                fontWeight,
-                fontStyle,
-                color,
-                text
-            });
+            // Check if font is non-compliant and element has visible text
+            if (!fontFamily.includes(complianceFont) && textContent !== "[No Visible Text]") {
+                let directLink = null;
 
-            if (!fontFamily.includes(complianceFont)) {
-                nonComplianceSet.add(fontData);
+                // Extract direct link if element is an anchor <a>
+                if (el.tagName.toLowerCase() === "a" && el.href) {
+                    directLink = el.href;
+                } else {
+                    // Otherwise, provide a JavaScript-based XPath link
+                    directLink = `javascript:document.evaluate('${xPath}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView();`;
+                }
+
+                nonCompliance.push({ textContent, tagName: el.tagName.toLowerCase(), directLink });
             }
         });
 
-        return {
-            nonComplianceFonts: Array.from(nonComplianceSet).map(f => JSON.parse(f))
-        };
+        return nonCompliance;
     }, complianceFont);
 
-    console.log("❌ Non-Compliant Fonts Found:");
-    console.table(fontDetails.nonComplianceFonts);
+    if (fontDetails.length === 0) {
+        console.log("✅ No non-compliant fonts found.");
+    } else {
+        console.log(`⚠️ Found ${fontDetails.length} non-compliant elements. Here are the links:\n`);
 
-    fs.writeFileSync('fontDetails.json', JSON.stringify(fontDetails, null, 2));
-    console.log("💾 Font details saved to fontDetails.json");
+        for (let i = 0; i < fontDetails.length; i++) {
+            const { textContent, tagName, directLink } = fontDetails[i];
+            console.log(`${i + 1}. <${tagName}> "${textContent}"\n   🔗 Link: ${directLink}\n`);
+        }
+    }
 
     await browser.close();
 })();
