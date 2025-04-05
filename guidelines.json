@@ -1,0 +1,129 @@
+{
+    "visual_identity": {
+      "system_layout": {
+        "overarching_system_and_layout": {
+          "vibrancy_and_simplicity": "Balance vibrancy with simplicity, focusing on clarity and flexibility.",
+          "whitespace": "Begin with generous whitespace, then layer in color, typography, photography, and graphic elements thoughtfully.",
+          "clean_design": "Prioritize clarity and modernity in design.",
+          "open_layouts": "Use whitespace to create open and breathable layouts.",
+          "avoid_clutter": "Ensure content is uncluttered and spaced appropriately."
+        },
+        "grid_structure": {
+          "margin": "Divide the short edge by 14 for the margin size.",
+          "grid": "Create a 30x30 grid within the margins."
+        }
+      },
+      "logo_and_tagline": {
+        "lockup_usage": {
+          "primary_treatment": "Logo and tagline should only appear together in the footer or on a single-page communication.",
+          "secondary_treatment": "In constrained layouts, use a stacked version of the lockup with the tagline beneath the logo."
+        },
+        "logo_usage": {
+          "color": "Logos should appear in color when possible; use reversed or black logos when necessary.",
+          "clearspace": "Maintain clear space equal to the width of the 'S' in the logo around all sides.",
+          "minimum_size": {
+            "cap_height": "0.25 inches in print or 18 pixels on screen."
+          },
+          "prohibited_usage": [
+            "Do not rotate the logo.",
+            "Do not create manual lockups."
+          ]
+        },
+        "tagline_usage": {
+          "font": "Roobert Bold, sentence case.",
+          "line_break": "There should always be a line break between 'world' and 'pays'.",
+          "trademark_symbol": "Use '™' for the first mention."
+        }
+      },
+      "color_palette": {
+        "primary_colors": {
+          "eggplant": {
+            "hex": "#431c5b",
+            "rgb": "67, 28, 91",
+            "cmyk": "83, 100, 0, 44",
+            "pms": "2627C"
+          },
+          "navy": {
+            "hex": "#1d1f48",
+            "rgb": "29, 31, 72",
+            "cmyk": "100, 78, 0, 66",
+            "pms": "2768C"
+          }
+        },
+        "secondary_colors": {
+          "raspberry": {
+            "hex": "#b21a53",
+            "rgb": "178, 26, 83",
+            "cmyk": "0, 100, 13, 26",
+            "pms": "215C"
+          },
+          "charcoal": {
+            "hex": "#3d3d40",
+            "rgb": "61, 61, 64",
+            "cmyk": "69, 63, 58, 48",
+            "pms": "447C"
+          },
+          "grey": {
+            "hex": "#e6e7e8",
+            "rgb": "230, 231, 232",
+            "cmyk": "0, 0, 0, 10",
+            "pms": "7541C"
+          }
+        },
+        "tertiary_colors": {
+          "black": {
+            "hex": "#000000",
+            "rgb": "0, 0, 0",
+            "cmyk": "0, 0, 0, 100"
+          },
+          "white": {
+            "hex": "#ffffff",
+            "rgb": "255, 255, 255",
+            "cmyk": "0, 0, 0, 0"
+          },
+          "core_green": {
+            "hex": "#4bcd3e",
+            "rgb": "75, 205, 62",
+            "cmyk": "76, 0, 100, 0",
+            "pms": "2421C"
+          }
+        },
+        "gradient_usage": {
+          "step_gradient": "Start with 100% Green and decrease opacity evenly in denominators to create a harmonious gradation."
+        }
+      },
+      "typography": {
+        "typeface": "Roobert, with Aptos as a substitute for desktop applications like PowerPoint.",
+        "hierarchy": {
+          "headlines": "Use sentence case for headlines.",
+          "subheads": "Use sentence case for subheads.",
+          "body_copy": "Use sentence case for body copy.",
+          "cta_buttons": "Use all caps for calls to action and buttons."
+        },
+        "color_treatment": {
+          "eggplant_or_navy_background": "Text should be white.",
+          "grey_background": "Text should be navy."
+        }
+      },
+      "graphic_elements": {
+        "circular_shapes": {
+          "usage": "Circles symbolize unity, wholeness, and completion. They can be used as primary design anchors, icons, or patterns.",
+          "overlay_with_imagery": "Circles can overlay images to add depth and contrast."
+        },
+        "icons": {
+          "green_icons": "Icons can be used for graphical approaches and conceptual ideas.",
+          "icon_usage_with_imagery": "Icons can serve as containers for imagery."
+        },
+        "dot_graphics": {
+          "scaling": "Dots should be built on a 50% scale of one another.",
+          "opacity": {
+            "large_dot": "40% opacity",
+            "second_dot": "70% opacity",
+            "third_dot": "100% opacity"
+          },
+          "overlap_with_photo": "When overlapping photos, use a multiplied effect and avoid faces in the photo."
+        }
+      }
+    }
+  }
+  
