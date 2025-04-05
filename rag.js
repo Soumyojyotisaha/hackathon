@@ -37,61 +37,84 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv_1 = require("dotenv");
-var mistralai_1 = require("@mistralai/mistralai");
 var readlineSync = require("readline-sync");
+var axios_1 = require("axios");
+var fs = require("fs");
+var path = require("path");
 (0, dotenv_1.config)(); // Load .env variables
-var apiKey = process.env.MISTRAL_API_KEY;
+var apiKey = process.env.INNOVATE_API_KEY;
 if (!apiKey) {
-    throw new Error("MISTRAL_API_KEY is missing in .env file");
+    throw new Error("INNOVATE_API_KEY is missing in .env file");
 }
-var client = new mistralai_1.Mistral({ apiKey: apiKey });
-// Sample knowledge base (Replace this with a vector DB for production)
-var knowledgeBase = [
-    { question: "What is RAG?", answer: "Retrieval-Augmented Generation (RAG) retrieves relevant data before generating responses." },
-    { question: "What is Mistral AI?", answer: "Mistral AI provides open-weight language models for AI applications." },
-    { question: "What is the best French cheese?", answer: "Some popular French cheeses are Camembert, Roquefort, and Brie." },
-];
-function retrieveContext(query) {
-    return __awaiter(this, void 0, void 0, function () {
-        var bestMatch, highestScore;
-        return __generator(this, function (_a) {
-            bestMatch = null;
-            highestScore = 0;
-            knowledgeBase.forEach(function (entry) {
-                var score = similarity(query.toLowerCase(), entry.question.toLowerCase());
-                if (score > highestScore) {
-                    highestScore = score;
-                    bestMatch = entry.answer;
-                }
-            });
-            return [2 /*return*/, bestMatch || "I don't have enough information on that."];
-        });
+var deploymentId = "gpt-4o-mini";
+var apiVersion = "2024-02-01";
+var complianceReportsDir = path.join(__dirname, "api", "compliance_report");
+// Ensure the directory exists
+if (!fs.existsSync(complianceReportsDir)) {
+    fs.mkdirSync(complianceReportsDir, { recursive: true });
+}
+// Load compliance reports from JSON files and format them as sections
+function loadComplianceReports() {
+    var contextString = "";
+    var files = fs.readdirSync(complianceReportsDir);
+    //console.log("Files found:", files);
+    files.forEach(function (file) {
+        if (path.extname(file) === ".json") {
+            var filePath = path.join(complianceReportsDir, file);
+            var data = fs.readFileSync(filePath, "utf-8");
+            try {
+                var json = JSON.parse(data);
+                var entries = Array.isArray(json) ? json : [json]; // Normalize single object to array
+                entries.forEach(function (entry) {
+                    var question = entry.question, answer = entry.answer;
+                    if (question && answer) {
+                        // Add report as a tagged section in the context string
+                        contextString += "<".concat(file.replace('.json', ''), ">\n").concat(JSON.stringify(entry, null, 2), "\n</").concat(file.replace('.json', ''), ">\n\n");
+                    }
+                    else {
+                        // Log missing fields but still include the entry for visibility
+                        //console.warn(`⚠️ Missing 'question' or 'answer' in ${file}:`, entry);
+                        contextString += "<".concat(file.replace('.json', ''), ">\n").concat(JSON.stringify(entry, null, 2), "\n</").concat(file.replace('.json', ''), ">\n\n");
+                    }
+                });
+            }
+            catch (err) {
+                console.error("\u274C Failed to parse JSON in ".concat(file, ":"), err);
+            }
+        }
     });
+    return contextString;
 }
-function similarity(a, b) {
-    var matches = 0;
-    a.split(" ").forEach(function (word) {
-        if (b.includes(word))
-            matches++;
-    });
-    return matches / Math.max(a.split(" ").length, b.split(" ").length);
+// Load all report data into the context string
+var contextString = loadComplianceReports();
+// Chatbot Introduction
+function getBotIntroduction() {
+    return "Welcome! I am an AI chatbot designed to help you ensure that your webpage complies with visual identity and branding guidelines. You can submit the details of your webpage, and I will evaluate it based on our design standards. Additionally, I can summarize reports in simple language, helping you quickly understand the findings.";
 }
-function generateResponse(context, query) {
+// Generate chatbot response
+function generateResponse(query) {
     return __awaiter(this, void 0, void 0, function () {
-        var prompt_1, chatResponse, content, error_1;
+        var prompt_1, url, headers, body, response, content, error_1;
         var _a, _b, _c;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
                     _d.trys.push([0, 2, , 3]);
-                    prompt_1 = "Use the following knowledge to answer the user's question:\n\nKnowledge: ".concat(context, "\n\nUser: ").concat(query, "\n\nBot:");
-                    return [4 /*yield*/, client.chat.complete({
-                            model: "mistral-large-latest",
-                            messages: [{ role: "user", content: prompt_1 }],
-                        })];
+                    prompt_1 = "\n      You are an AI chatbot tasked with assisting users in ensuring their web pages comply with the visual identity and branding guidelines. The user will submit details about their webpage, and you will provide a comprehensive evaluation based on these guidelines.\n\n      Evaluation Criteria Based on the Visual Identity Guidelines:\n\n      System Layout:\n      - Does the layout balance vibrancy and simplicity while focusing on clarity and flexibility?\n      - Is there an appropriate amount of whitespace throughout the design?\n      - Is the design clean, modern, and uncluttered, with open layouts?\n      - Ensure content is spaced appropriately without any clutter.\n\n      Grid Structure:\n      - Are the margins set by dividing the short edge by 14?\n      - Does the layout include a 30x30 grid within the margins?\n\n      Logo and Tagline Usage:\n      - Is the logo and tagline used correctly (i.e., in the footer or on a single-page communication, or in stacked form for constrained layouts)?\n      - Is the logo used in its appropriate color form, and is the clear space around it sufficient (equal to the width of the \u2018S\u2019 in the logo)?\n      - Is the logo size adhered to (minimum height: 0.25 inches in print or 18 pixels on screen)?\n      - Are the prohibited uses of the logo avoided (e.g., no rotation, no manual lockups)?\n      - Is the tagline used correctly (font: Roobert Bold, sentence case, correct line breaks, and trademark symbol)?\n\n      Color Palette:\n      - Does the webpage adhere to the primary color palette (eggplant, navy), secondary colors (raspberry, charcoal, grey), and tertiary colors (black, white, core green)?\n      - Is the gradient usage followed correctly, with a 100% Green starting point and decreasing opacity evenly in denominators?\n\n      Typography:\n      - Is the correct typeface (Roobert, with Aptos as a substitute for desktop applications) used throughout the webpage?\n      - Are the hierarchy rules followed for headlines (sentence case), subheads (sentence case), body copy (sentence case), and call-to-action buttons (all caps)?\n      - Does the text color treatment follow the guidelines (white text on eggplant or navy background, navy text on grey background)?\n\n      Graphic Elements:\n      - Are circular shapes used appropriately as design anchors or icons, and do they overlay images effectively to add depth and contrast?\n      - Are green icons used for conceptual ideas, and are icons serving as containers for imagery?\n      - Do dot graphics follow the scaling and opacity guidelines? (e.g., large dot at 40% opacity, second dot at 70%, third dot at 100% opacity)\n      - When dot graphics overlap with photos, is the multiplied effect applied, and are faces in the photo avoided?\n\n      Response Steps for Faults:\n\n      - If any part of the webpage violates the guidelines, the chatbot should guide the user with clear steps to resolve the issue.\n      - For example:\n\n        System Layout:\n        Fault: \"The layout is too cluttered and lacks whitespace.\"\n        Solution: \"Ensure that you introduce generous whitespace between sections of content. Use open layouts with sufficient spacing, and avoid overloading any single section with too many elements. Simplify the content presentation.\"\n\n        Logo and Tagline Usage:\n        Fault: \"The logo is being rotated or manually adjusted.\"\n        Solution: \"Ensure that the logo appears in its original orientation and is not manually adjusted. Maintain the clear space around the logo equal to the width of the 'S'. Use the logo in color, and only use reversed or black logos when absolutely necessary.\"\n\n        Color Palette:\n        Fault: \"You are using a color outside the defined primary and secondary palette.\"\n        Solution: \"Please use colors from the approved palette only. Refer to the primary colors (eggplant, navy), secondary colors (raspberry, charcoal, grey), and tertiary colors (black, white, core green) to maintain consistency with the brand's visual identity.\"\n\n        Typography:\n        Fault: \"The headlines are in uppercase rather than sentence case.\"\n        Solution: \"Update the text to use sentence case for headlines and subheads. Ensure that call-to-action buttons are in all caps, and use the Roobert font for the body copy.\"\n\n        Graphic Elements:\n        Fault: \"The dot graphics are not using the correct opacity.\"\n        Solution: \"Ensure the dots are created with 40% opacity for the large dot, 70% for the second dot, and 100% for the third. When overlapping photos, use the multiplied effect and avoid using faces in the photos.\"\n\n      This detailed prompt allows the bot to evaluate the user's webpage based on the provided guidelines and offer concrete steps to resolve issues in compliance.\n\n      Additionally, the reports the bot is reading are in .json format and it should be able to summarize them in simple language in less than 5-6 lines.\n\n      If a query is asked beyond the knowledge base, please redirect the user to [FIS Global](https://www.fisglobal.com/).\n\n      <context>\n      ".concat(contextString, "\n      </context>\n\n      Answer questions using these reports in a professional tone.\n\n      User: ").concat(query, "\n      Bot:");
+                    url = "https://innovate-openai-api-mgt.azure-api.net/innovate-tracked/deployments/".concat(deploymentId, "/chat/completions?api-version=").concat(apiVersion);
+                    headers = {
+                        "Content-Type": "application/json",
+                        "Cache-Control": "no-cache",
+                        "api-key": apiKey,
+                    };
+                    body = {
+                        model: "gpt-4o-mini",
+                        messages: [{ role: "user", content: prompt_1 }],
+                    };
+                    return [4 /*yield*/, axios_1.default.post(url, body, { headers: headers })];
                 case 1:
-                    chatResponse = _d.sent();
-                    content = (_c = (_b = (_a = chatResponse.choices) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.content;
+                    response = _d.sent();
+                    content = (_c = (_b = (_a = response.data.choices) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.content;
                     return [2 /*return*/, typeof content === "string" ? content.trim() : "No valid response received."];
                 case 2:
                     error_1 = _d.sent();
@@ -102,34 +125,41 @@ function generateResponse(context, query) {
         });
     });
 }
-// Interactive chat loop
+// Summarize compliance report in simple language
+function summarizeReport(report) {
+    return "This report covers key visual identity aspects like layout, logo usage, typography, color palette, and graphic elements. It identifies any violations and provides solutions for improving the webpage design to adhere to branding guidelines.";
+}
+// Start chatbot interaction
 function startChatbot() {
     return __awaiter(this, void 0, void 0, function () {
-        var userInput, context, response;
+        var userInput, reportSummary, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     console.log("💬 Chatbot started! Type 'exit' to stop.");
+                    console.log(getBotIntroduction());
                     _a.label = 1;
                 case 1:
-                    if (!true) return [3 /*break*/, 4];
+                    if (!true) return [3 /*break*/, 5];
                     userInput = readlineSync.question("\nYou: ");
                     if (userInput.toLowerCase() === "exit") {
                         console.log("👋 Goodbye!");
-                        return [3 /*break*/, 4];
+                        return [3 /*break*/, 5];
                     }
-                    return [4 /*yield*/, retrieveContext(userInput)];
-                case 2:
-                    context = _a.sent();
-                    return [4 /*yield*/, generateResponse(context, userInput)];
+                    if (!(userInput.toLowerCase() === "summarize report")) return [3 /*break*/, 2];
+                    reportSummary = summarizeReport(contextString);
+                    console.log("Bot: ", reportSummary);
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, generateResponse(userInput)];
                 case 3:
                     response = _a.sent();
                     console.log("Bot:", response);
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    _a.label = 4;
+                case 4: return [3 /*break*/, 1];
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
-// Start chatbot
+// Start
 startChatbot();
