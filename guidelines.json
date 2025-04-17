@@ -1,129 +1,44 @@
-{
-    "visual_identity": {
-      "system_layout": {
-        "overarching_system_and_layout": {
-          "vibrancy_and_simplicity": "Balance vibrancy with simplicity, focusing on clarity and flexibility.",
-          "whitespace": "Begin with generous whitespace, then layer in color, typography, photography, and graphic elements thoughtfully.",
-          "clean_design": "Prioritize clarity and modernity in design.",
-          "open_layouts": "Use whitespace to create open and breathable layouts.",
-          "avoid_clutter": "Ensure content is uncluttered and spaced appropriately."
-        },
-        "grid_structure": {
-          "margin": "Divide the short edge by 14 for the margin size.",
-          "grid": "Create a 30x30 grid within the margins."
-        }
-      },
-      "logo_and_tagline": {
-        "lockup_usage": {
-          "primary_treatment": "Logo and tagline should only appear together in the footer or on a single-page communication.",
-          "secondary_treatment": "In constrained layouts, use a stacked version of the lockup with the tagline beneath the logo."
-        },
-        "logo_usage": {
-          "color": "Logos should appear in color when possible; use reversed or black logos when necessary.",
-          "clearspace": "Maintain clear space equal to the width of the 'S' in the logo around all sides.",
-          "minimum_size": {
-            "cap_height": "0.25 inches in print or 18 pixels on screen."
-          },
-          "prohibited_usage": [
-            "Do not rotate the logo.",
-            "Do not create manual lockups."
-          ]
-        },
-        "tagline_usage": {
-          "font": "Roobert Bold, sentence case.",
-          "line_break": "There should always be a line break between 'world' and 'pays'.",
-          "trademark_symbol": "Use '™' for the first mention."
-        }
-      },
-      "color_palette": {
-        "primary_colors": {
-          "eggplant": {
-            "hex": "#431c5b",
-            "rgb": "67, 28, 91",
-            "cmyk": "83, 100, 0, 44",
-            "pms": "2627C"
-          },
-          "navy": {
-            "hex": "#1d1f48",
-            "rgb": "29, 31, 72",
-            "cmyk": "100, 78, 0, 66",
-            "pms": "2768C"
-          }
-        },
-        "secondary_colors": {
-          "raspberry": {
-            "hex": "#b21a53",
-            "rgb": "178, 26, 83",
-            "cmyk": "0, 100, 13, 26",
-            "pms": "215C"
-          },
-          "charcoal": {
-            "hex": "#3d3d40",
-            "rgb": "61, 61, 64",
-            "cmyk": "69, 63, 58, 48",
-            "pms": "447C"
-          },
-          "grey": {
-            "hex": "#e6e7e8",
-            "rgb": "230, 231, 232",
-            "cmyk": "0, 0, 0, 10",
-            "pms": "7541C"
-          }
-        },
-        "tertiary_colors": {
-          "black": {
-            "hex": "#000000",
-            "rgb": "0, 0, 0",
-            "cmyk": "0, 0, 0, 100"
-          },
-          "white": {
-            "hex": "#ffffff",
-            "rgb": "255, 255, 255",
-            "cmyk": "0, 0, 0, 0"
-          },
-          "core_green": {
-            "hex": "#4bcd3e",
-            "rgb": "75, 205, 62",
-            "cmyk": "76, 0, 100, 0",
-            "pms": "2421C"
-          }
-        },
-        "gradient_usage": {
-          "step_gradient": "Start with 100% Green and decrease opacity evenly in denominators to create a harmonious gradation."
-        }
-      },
-      "typography": {
-        "typeface": "Roobert, with Aptos as a substitute for desktop applications like PowerPoint.",
-        "hierarchy": {
-          "headlines": "Use sentence case for headlines.",
-          "subheads": "Use sentence case for subheads.",
-          "body_copy": "Use sentence case for body copy.",
-          "cta_buttons": "Use all caps for calls to action and buttons."
-        },
-        "color_treatment": {
-          "eggplant_or_navy_background": "Text should be white.",
-          "grey_background": "Text should be navy."
-        }
-      },
-      "graphic_elements": {
-        "circular_shapes": {
-          "usage": "Circles symbolize unity, wholeness, and completion. They can be used as primary design anchors, icons, or patterns.",
-          "overlay_with_imagery": "Circles can overlay images to add depth and contrast."
-        },
-        "icons": {
-          "green_icons": "Icons can be used for graphical approaches and conceptual ideas.",
-          "icon_usage_with_imagery": "Icons can serve as containers for imagery."
-        },
-        "dot_graphics": {
-          "scaling": "Dots should be built on a 50% scale of one another.",
-          "opacity": {
-            "large_dot": "40% opacity",
-            "second_dot": "70% opacity",
-            "third_dot": "100% opacity"
-          },
-          "overlap_with_photo": "When overlapping photos, use a multiplied effect and avoid faces in the photo."
-        }
-      }
-    }
-  }
-  
+Questions from Module 7 & 8
+1. You are designing a smart home system. Create an abstract base class SmartDevice with a
+pure virtual function operate(). Devices like SmartLight, SmartThermostat, and SmartFan
+inherit from SmartDevice and implement operate() differently.
+Write a program that demonstrates runtime polymorphism by storing pointers to SmartDevice
+and calling operate() on each.
+2. Build a polymorphic system for online payments. Create an abstract class PaymentMethod
+with a pure virtual function pay(amount). Derive classes CreditCard, PayPal, and UPI, each
+implementing the pay() function with unique messages.
+Use runtime polymorphism to allow a user to pay using any method selected at runtime.
+3. Create a class Time to store hours and minutes. Overload the == and < operators to compare
+two Time objects. Write a program to demonstrate comparing two times for equality and
+checking which one is earlier.
+4.Design a class Counter with an integer data member.
+Overload the prefix and postfix ++ operators to increment the counter.
+Overload the + operator to add two Counter objects.
+Demonstrate both usages in main().
+5. Create a class template Matrix<T> that stores a 2x2 matrix.
+Overload the + operator to add two matrices of any data type and return the result.
+Demonstrate addition of int and float matrices.
+6. Create a class BankAccount with balance as a private member.
+Overload the + operator to deposit money (i.e., account + 500 should increase balance by 500).
+Overload the - operator to withdraw money.
+Ensure balance doesn't go negative.
+7. Create a class Fraction with numerator and denominator.
+Overload the +, -, *, and / operators to perform arithmetic on two fractions.
+Reduce the resulting fraction to its simplest form.
+8. Create a class Shape with:
+A virtual function display()
+An overloaded function display(string color)
+Derive class Triangle, override display(), and overload display(string color) as well.
+Demonstrate how both runtime and compile-time polymorphism can coexist in the same
+program.
+9. Create a function template add(T1 a, T2 b) that accepts two different types of parameters
+and returns their sum.
+Test it with combinations like int + float, float + double, etc.
+10.Write a program using vector<int> to:
+Accept 5 integers from the user
+Insert them into the vector
+Display the vector elements using an iterator
+Sort and display the sorted vector
+11.Explain Class Templates with Multiple Type Parameters with example.
+12.Explain the concept of generic programming, its purpose, and how it helps write flexible
+and reusable code using function templates and class templates.
