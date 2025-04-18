@@ -69,3 +69,6 @@ This project is licensed under the MIT License.
 ---
 🚀 Built with ❤️ using Mistral AI & TypeScript.
 
+
+https://docs.google.com/document/d/1gmMcoM1tT9yBIiROPllQlBz-_6QB-7UoClUf-DsxLEY/edit?tab=t.0
+
