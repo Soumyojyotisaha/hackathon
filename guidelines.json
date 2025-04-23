@@ -1,44 +1,14 @@
-Questions from Module 7 & 8
-1. You are designing a smart home system. Create an abstract base class SmartDevice with a
-pure virtual function operate(). Devices like SmartLight, SmartThermostat, and SmartFan
-inherit from SmartDevice and implement operate() differently.
-Write a program that demonstrates runtime polymorphism by storing pointers to SmartDevice
-and calling operate() on each.
-2. Build a polymorphic system for online payments. Create an abstract class PaymentMethod
-with a pure virtual function pay(amount). Derive classes CreditCard, PayPal, and UPI, each
-implementing the pay() function with unique messages.
-Use runtime polymorphism to allow a user to pay using any method selected at runtime.
-3. Create a class Time to store hours and minutes. Overload the == and < operators to compare
-two Time objects. Write a program to demonstrate comparing two times for equality and
-checking which one is earlier.
-4.Design a class Counter with an integer data member.
-Overload the prefix and postfix ++ operators to increment the counter.
-Overload the + operator to add two Counter objects.
-Demonstrate both usages in main().
-5. Create a class template Matrix<T> that stores a 2x2 matrix.
-Overload the + operator to add two matrices of any data type and return the result.
-Demonstrate addition of int and float matrices.
-6. Create a class BankAccount with balance as a private member.
-Overload the + operator to deposit money (i.e., account + 500 should increase balance by 500).
-Overload the - operator to withdraw money.
-Ensure balance doesn't go negative.
-7. Create a class Fraction with numerator and denominator.
-Overload the +, -, *, and / operators to perform arithmetic on two fractions.
-Reduce the resulting fraction to its simplest form.
-8. Create a class Shape with:
-A virtual function display()
-An overloaded function display(string color)
-Derive class Triangle, override display(), and overload display(string color) as well.
-Demonstrate how both runtime and compile-time polymorphism can coexist in the same
-program.
-9. Create a function template add(T1 a, T2 b) that accepts two different types of parameters
-and returns their sum.
-Test it with combinations like int + float, float + double, etc.
-10.Write a program using vector<int> to:
-Accept 5 integers from the user
-Insert them into the vector
-Display the vector elements using an iterator
-Sort and display the sorted vector
-11.Explain Class Templates with Multiple Type Parameters with example.
-12.Explain the concept of generic programming, its purpose, and how it helps write flexible
-and reusable code using function templates and class templates.
+
+	1.	Brand.i for FIS – AI-Powered Branding Compliance (Top 4 Idea):
+Developed an automated branding verification system using computer vision (YOLOv8, PyTorch) and web scraping to validate UI elements (logos, buttons, charts) and ensure adherence to FIS branding guidelines. The solution integrates with CI/CD pipelines for automated compliance checks and features a chatbot (OpenAI API) for report interpretation and improvement suggestions. Technologies used include Python, JavaScript, ReactJS, NodeJS, Playwright, and OpenCV. This project was ranked among the top 4 ideas in the competition.
+	2.	Inventory Management System:
+Built a full-stack web app to streamline inventory, order processing, and customer-supplier interactions. Customers can place, view, and cancel orders, update profiles, and reset passwords. Suppliers manage products, stock, orders, and customer details. Used React.js for the frontend and Node.js/Express/MongoDB for the backend, with JWT authentication and Mailjet for email services. The project improves operational efficiency for both customers and suppliers.
+	3.	Playwright Testing and Allure Reports:
+Utilized Playwright for comprehensive end-to-end testing of web applications, ensuring seamless integration of frontend and backend functionalities. This involved automating user interactions across multiple browsers (Chromium, WebKit, Firefox) and leveraging Allure Reports for structured test reporting. Allure simplifies test result analysis by providing detailed execution histories and categorizing failures, enhancing debugging efficiency. Applied this approach to various websites and the Inventory Management System, significantly improving test reliability and reducing maintenance overhead.
+Developmental Areas:
+	1.	Tech Growth:
+Continuously explore and adopt advanced tech stacks to enhance development capabilities.
+	2.	Leadership & Teamwork:
+Focus on developing leadership skills and improving collaboration within team environments to drive project success.
+	3.	Time Management:
+Improve time management skills to optimize productivity, prioritize tasks effectively, and meet project deadlines efficiently.
