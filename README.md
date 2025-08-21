@@ -71,4 +71,4 @@ This project is licensed under the MIT License.
 
 
 https://docs.google.com/document/d/1gmMcoM1tT9yBIiROPllQlBz-_6QB-7UoClUf-DsxLEY/edit?tab=t.0
-
+https://chat.whatsapp.com/Cs9f9Xjo37pJF77fbnLeE5
